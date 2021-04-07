@@ -15,7 +15,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.student.information.system.Student;
@@ -42,7 +48,7 @@ public class StudentRestControllerTest {
     private final String ragcrixEmail = "ragcrix@rg.com";
     private final String yigitEmail = "yigit@ygt.com";
 
-  /*  @Test
+    @Test
     public void givenStudents_whenGetAllStudents_thenReturnJsonArray() throws Exception {
         given(studentService.findAll()).willReturn(Arrays.asList(ragcrix));
 
@@ -93,7 +99,7 @@ public class StudentRestControllerTest {
         mvc.perform(delete("/students/delete/{studentNumber}", ragcrixStudentNumber)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-    }*/
+    }
 
     @Before
     public void setup()
