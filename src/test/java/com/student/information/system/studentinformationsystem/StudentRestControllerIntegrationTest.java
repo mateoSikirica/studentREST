@@ -7,9 +7,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,10 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.student.information.system.Student;
 import com.student.information.system.StudentRepository;
 
-//@RunWith(SpringRunner.class)
-@DataMongoTest
-@RunWith(SpringJUnit4ClassRunner.class)
-public class StudentRepositoryIntegrationTest {
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class StudentRestControllerIntegrationTest {
 
     @Autowired
     private StudentRepository studentRepository;
@@ -28,7 +26,7 @@ public class StudentRepositoryIntegrationTest {
     private MongoTemplate mongoTemplate;
 
     @Test
-    public void testSaveAndFindStudent() throws Exception {
+    public void testSaveAndFindTicket() throws Exception {
         long studentNumberRagcrix = 23L;
         long studentNumberYigit = 24L;
         Student ragcrix = new Student();
@@ -58,19 +56,6 @@ public class StudentRepositoryIntegrationTest {
         studentRepository.save(yigit);
 
         assertEquals(ragcrix.getId(), studentRepository.findByStudentNumber(studentNumberRagcrix).getId());
-        assertEquals(ragcrix.getName(), studentRepository.findByStudentNumber(studentNumberRagcrix).getName());
-        assertEquals(ragcrix.getEmail(), studentRepository.findByStudentNumber(studentNumberRagcrix).getEmail());
-        assertEquals(ragcrix.getStudentNumber(), studentRepository.findByStudentNumber(studentNumberRagcrix).getStudentNumber());
-        assertEquals(ragcrix.getCourseList(), studentRepository.findByStudentNumber(studentNumberRagcrix).getCourseList());
-        assertEquals(ragcrix.getGpa(), studentRepository.findByStudentNumber(studentNumberRagcrix).getGpa());
-
         assertEquals(yigit.getId(), studentRepository.findByStudentNumber(studentNumberYigit).getId());
-        assertEquals(yigit.getName(), studentRepository.findByStudentNumber(studentNumberYigit).getName());
-        assertEquals(yigit.getEmail(), studentRepository.findByStudentNumber(studentNumberYigit).getEmail());
-        assertEquals(yigit.getStudentNumber(), studentRepository.findByStudentNumber(studentNumberYigit).getStudentNumber());
-        assertEquals(yigit.getCourseList(), studentRepository.findByStudentNumber(studentNumberYigit).getCourseList());
-        assertEquals(yigit.getGpa(), studentRepository.findByStudentNumber(studentNumberYigit).getGpa());
-
-        Assert.assertNull(studentRepository.findByStudentNumber(1L));
     }
 }
