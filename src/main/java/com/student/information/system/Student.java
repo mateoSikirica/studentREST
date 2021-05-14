@@ -1,18 +1,25 @@
 package com.student.information.system;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Map;
 
+import lombok.Builder;
+import lombok.Data;
+
 /**
  * @author ragcrix
  */
 @Document(collection = "students")
+@Data
+//@Builder
 public class Student {
 
-    @Id
+
+
     @Indexed(unique = true)
     private String id;
 
