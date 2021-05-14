@@ -7,8 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.student.information.system.Student;
 import com.student.information.system.StudentRepository;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +64,13 @@ public class RestControllerIntegrationTest {
     }
 
     @Test
+    public void test_delete_successful() throws Exception
+    {
+        mvc.perform(delete("/students/delete/23")
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+    }
+
+    @Test
     public void test_post_successful() throws Exception {
         Long stipeStudentNumber = 333L;
         String stipeEmail = "stipe@s.com";
@@ -93,9 +99,11 @@ public class RestControllerIntegrationTest {
         assertEquals(stipe.getGpa(), studentRepository.findByStudentNumber(stipeStudentNumber).getGpa());
     }
 
-    @BeforeAll
+    @BeforeEach
     public void setup()
     {
+        studentRepository.deleteAll();
+
         Long ragcrixStudentNumber = 23L;
         Long yigitStudentNumber = 91L;
 
@@ -126,11 +134,6 @@ public class RestControllerIntegrationTest {
 
         studentRepository.save(ragcrix);
         studentRepository.save(yigit);
-    }
-
-    @AfterAll
-    public void setupAfter() {
-        studentRepository.delete(stipe);
     }
 }
 
