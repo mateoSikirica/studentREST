@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.student.information.system.Student;
 import com.student.information.system.StudentRepository;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -134,6 +135,11 @@ public class RestControllerIntegrationTest {
 
         studentRepository.save(ragcrix);
         studentRepository.save(yigit);
+    }
+
+    @AfterAll
+    public void cleanUp() {
+        studentRepository.deleteAll();
     }
 }
 
